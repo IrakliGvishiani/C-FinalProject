@@ -1,0 +1,13 @@
+﻿hello=გამარჯობა
+book=წიგნი
+car=მანქანა
+goodbye=ნახვამდის
+thank_you=მადლობა
+yes=დიახ
+no=არა
+please=გთხოვ
+welcome=კეთილი იყოს თქვენი მობრძანება
+how are you=როგორ ხარ?
+what is your name=რა გქვია?
+friend=მეგობარი
+computer=??????????

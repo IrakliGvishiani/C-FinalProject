@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="C#FinalProject/C#FinalProject.csproj" />
+  <Project Path="Calculator/Calculator.csproj" Id="dbd5cc73-9423-4109-80a7-3821ff700d2d" />
+  <Project Path="GuessNumber/GuessNumber.csproj" Id="bddfac4a-6ee4-4642-afda-f628e7c7e7c2" />
+  <Project Path="Translator/Translator.csproj" Id="a694bba9-4e2d-4f53-b186-b0be2773b030" />
+</Solution>
