@@ -31,42 +31,8 @@ Georgian to English  2");
                 {
 
                     var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EN-KA.txt");
-                    //Console.WriteLine(path);
-                    try
-                    {
-                        var translations = LoadTranslations(path);
-
-
-                        Console.WriteLine("Enter an English word to translate:");
-                        var englishInput = Console.ReadLine().ToLower();
-
-                        if (translations.ContainsKey(englishInput))
-                        {
-                            Console.WriteLine($"The Georgian translation of '{englishInput}' is: {translations[englishInput]}");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"'{englishInput}' word doesn't exist in dictionary! would you like it to add? (Y/N)");
-                            var addResponse = Console.ReadLine().ToLower();
-
-                            if (addResponse == "y")
-                            {
-                                Console.WriteLine("Enter the Georgian translation:");
-                                var georgianTranslation = Console.ReadLine().ToLower();
-
-                                File.AppendAllText(path, Environment.NewLine + $" {englishInput}={georgianTranslation}", Encoding.UTF8);
-                                Console.WriteLine("Word added to the dictionary.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Word not added to the dictionary.");
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error loading file: " + ex.Message);
-                    }
+                  
+                    Translate(path,"English","Georgian");
 
 
 
@@ -76,39 +42,8 @@ Georgian to English  2");
                 {
 
                     var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KA-EN.txt");
-
-
-
-                    try
-                    {
-                        var translations = LoadTranslations(path);
-
-                        Console.WriteLine("Enter a Georgian word to translate:");
-                        var georgianInput = Console.ReadLine();
-                        if (translations.ContainsKey(georgianInput))
-                        {
-                            Console.WriteLine($"The English translation of '{georgianInput}' is: {translations[georgianInput]}");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"'{georgianInput}' word doesn't exist in dictionary! would you like it to add? (Y/N)");
-                            var addResponse = Console.ReadLine().ToLower();
-                            if (addResponse == "y")
-                            {
-                                Console.WriteLine("Enter the English translation:");
-                                var englishTranslation = Console.ReadLine().ToLower();
-                                File.AppendAllText(path, Environment.NewLine + $"{georgianInput}={englishTranslation}", Encoding.UTF8);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Word not added to the dictionary.");
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error loading file: " + ex.Message);
-                    }
+                    
+                    Translate(path,"Georgian","English");
 
 
                 }
@@ -133,6 +68,40 @@ Georgian to English  2");
                 }
             }
             return translations;
+        }
+
+        public static void Translate(string path,string translateFrom, string translateTo)
+        {
+            try
+            {
+                var translation = LoadTranslations(path);
+
+                Console.WriteLine($"Enter a {translateFrom} word to translate:");
+                var input = Console.ReadLine().ToLower();
+                if (translation.ContainsKey(input))
+                {
+                    Console.WriteLine($"The {translateTo} translation of '{input}' is: {translation[input]}");
+                }
+                else
+                {
+                    Console.WriteLine($"'{input}' word doesn't exist in dictionary! would you like it to add? (Y/N)");
+                    var addResponse = Console.ReadLine().ToLower();
+                    if (addResponse == "y")
+                    {
+                        Console.WriteLine($"Enter the {translateTo} translation:");
+                        var translationInput = Console.ReadLine().ToLower();
+                        File.AppendAllText(path, Environment.NewLine + $"{input}={translationInput}", Encoding.UTF8);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Word not added to the dictionary.");
+                    }
+                }
+                }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading file: " + ex.Message);
+            }
         }
     }
 }

@@ -1,0 +1,16 @@
+apple
+banana
+computer
+programming
+hangman
+software
+development
+tree
+car
+house
+table
+chair
+whale
+guitar
+mountain
+monkey
