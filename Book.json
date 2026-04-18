@@ -1,0 +1,14 @@
+[
+  {
+    "Id": 1,
+    "Name": "Clean Code",
+    "Author": "Robert C. Martin",
+    "PublishedDate": "2008-08-01T00:00:00"
+  },
+  {
+    "Id": 2,
+    "Name": "Refactoring",
+    "Author": "Martin Fowler",
+    "PublishedDate": "1999-07-08T00:00:00"
+  }
+]

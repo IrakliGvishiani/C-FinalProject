@@ -1,11 +1,16 @@
 <Solution>
   <Folder Name="/ATM/">
-    <Project Path="ATM.Data/ATM.Data.csproj" Id="c5b794b9-1d67-463a-9ff9-ce681c1cc015" />
     <Project Path="ATM.Repository/ATM.Repository.csproj" Id="0fe45924-7972-4495-9bd5-1b11bb569ff0" />
     <Project Path="ATM.Service/ATM.Service.csproj" Id="096a2afb-a3dd-4ba6-9645-21fc9579c6bf" />
     <Project Path="ATM.UI/ATM.UI.csproj" Id="67a3ba34-12d8-4b27-a935-9e731776356e" />
   </Folder>
-  <Project Path="C#FinalProject/C#FinalProject.csproj" />
+  <Folder Name="/BookManagement/">
+    <Project Path="BM.Repository/BM.Repository.csproj" Id="7b01314c-ee11-4e05-ad9e-773cff4a5be2" />
+    <Project Path="BM.UI/BM.UI.csproj" Id="7b69b99f-ea5f-4949-b275-baca57e811a5" />
+  </Folder>
+  <Folder Name="/BookManagement/Data/">
+    <File Path="Book.json" />
+  </Folder>
   <Project Path="Calculator/Calculator.csproj" Id="dbd5cc73-9423-4109-80a7-3821ff700d2d" />
   <Project Path="GuessNumber/GuessNumber.csproj" Id="bddfac4a-6ee4-4642-afda-f628e7c7e7c2" />
   <Project Path="Hangman/Hangman.csproj" Id="2263d014-2f92-4c15-b3ce-8dfb76722041" />

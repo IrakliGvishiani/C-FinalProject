@@ -1,0 +1,27 @@
+[
+  {
+    "Username": "gio",
+    "Password": "1234",
+    "Balance": 691
+  },
+  {
+    "Username": "nika",
+    "Password": "abcd",
+    "Balance": 300
+  },
+  {
+    "Username": "ana",
+    "Password": "pass123",
+    "Balance": 2500
+  },
+  {
+    "Username": "luka",
+    "Password": "1111",
+    "Balance": 50
+  },
+  {
+    "Username": "newuser",
+    "Password": "password123",
+    "Balance": 1000.00
+  }
+]

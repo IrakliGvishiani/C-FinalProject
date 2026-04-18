@@ -9,8 +9,8 @@ namespace ATM.UI
     {
         static async Task Main(string[] args)
         {
-            var path = "C:\\Users\\user\\source\\repos\\C#FinalProject\\ATM.Data\\User.json";
-                
+            var path = @"../../../../User.json";
+            //var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "User.json");
             var userRepo = new UserRepository(path);
             var authService = new AuthService(userRepo);
             var accountService = new AccountService(userRepo);
