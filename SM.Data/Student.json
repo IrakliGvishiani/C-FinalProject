@@ -1,0 +1,20 @@
+[
+  {
+    "Username": "luka_student",
+    "Name": "Luka Beridze",
+    "RollNumber": 101,
+    "Grade": "A"
+  },
+  {
+    "Username": "ana_student",
+    "Name": "Ana Giorgadze",
+    "RollNumber": 102,
+    "Grade": "B"
+  },
+  {
+    "Username": "dato_student",
+    "Name": "Dato Mikeladze",
+    "RollNumber": 103,
+    "Grade": "C"
+  }
+]

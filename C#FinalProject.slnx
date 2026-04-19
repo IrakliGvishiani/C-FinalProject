@@ -11,6 +11,12 @@
   <Folder Name="/BookManagement/Data/">
     <File Path="Book.json" />
   </Folder>
+  <Folder Name="/StudentManagement/">
+    <Project Path="SM.Data/SM.Data.csproj" Id="3c802703-5510-4563-9a8f-8acda9300028" />
+    <Project Path="SM.Repositroy/SM.Repository.csproj" Id="95ba7b78-f78d-4a4e-8a1e-e034078df08c" />
+    <Project Path="SM.Service/SM.Service.csproj" Id="cc2bfc0f-5399-467b-af20-7b7ee362c45a" />
+    <Project Path="SM.UI/SM.UI.csproj" Id="92b4526a-3996-4d66-a31e-53e7b1f50c6a" />
+  </Folder>
   <Project Path="Calculator/Calculator.csproj" Id="dbd5cc73-9423-4109-80a7-3821ff700d2d" />
   <Project Path="GuessNumber/GuessNumber.csproj" Id="bddfac4a-6ee4-4642-afda-f628e7c7e7c2" />
   <Project Path="Hangman/Hangman.csproj" Id="2263d014-2f92-4c15-b3ce-8dfb76722041" />
