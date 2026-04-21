@@ -2,6 +2,7 @@
 using SM.Repository.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
@@ -72,6 +73,13 @@ namespace SM.Repository
             {
                 var students = GetAllStudents();
                 var student = students.Find(s => s.RollNumber == rollNumber);
+
+                if (!"ABCDF".Contains(newGrade))
+                {
+                    Console.WriteLine("Invalid grade.");
+                    return;
+                }
+
                 if (student != null)
                 {
                     student.Grade = newGrade;

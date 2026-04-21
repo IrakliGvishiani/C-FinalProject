@@ -10,6 +10,6 @@ namespace SM.Repository.Models
         public int AssignmentId { get; set; }
         public string StudentUsername { get; set; }
         public string Answer { get; set; }
-        public int? Grade { get; set; }
+        public char? Grade { get; set; }
     }
 }
