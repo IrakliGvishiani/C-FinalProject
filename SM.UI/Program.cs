@@ -29,42 +29,49 @@ namespace SM.UI
                 Console.WriteLine("2. Register");
                 var choice = Console.ReadLine();
 
-                Console.Write("Username: ");
-                var username = Console.ReadLine();
-
-                Console.Write("Password: ");
-                var password = Console.ReadLine();
-
-                if (choice == "1")
+                if (choice != "1" && choice != "2")
                 {
-                    currentUser = await authService.Login(username, password);
-                    if (currentUser == null)
-                        Console.WriteLine("Invalid credentials.");
+                    Console.WriteLine("Invalid choice. Please enter 1 or 2.");
                 }
-                else if (choice == "2")
+                else
                 {
-                    Console.Write("Role (Student/Lecturer): ");
-                    var role = Console.ReadLine();
+                    Console.Write("Username: ");
+                    var username = Console.ReadLine();
 
-                    currentUser = await authService.Register(username, password, role);
+                    Console.Write("Password: ");
 
-                    if (role == "Student")
+                    var password = Console.ReadLine();
+
+                    if (choice == "1")
                     {
-                        Console.Write("Name: ");
-                        var name = Console.ReadLine();
+                        currentUser = await authService.Login(username, password);
+                    }
+                    else if (choice == "2")
+                    {
+                        //Console.Write("Role (Student/Lecturer): ");
+                        var role = "student";
 
-                        Console.Write("Roll Number: ");
-                        int roll = int.Parse(Console.ReadLine());
+                        currentUser = await authService.Register(username, password, role);
 
-                        await studentRepo.AddStudent(new Student
+                        if (role == "student")
                         {
-                            UserName = username,
-                            Name = name,
-                            RollNumber = roll,
-                            Grade = 'F'
-                        });
+                            //Console.Write("Name: ");
+                            var name = ReadString("Name: ");
+
+                            //Console.Write("Roll Number: ");
+                            int roll = ReadInt("Roll Number");
+
+                            await studentRepo.AddStudent(new Student
+                            {
+                                UserName = username,
+                                Name = name,
+                                RollNumber = roll,
+                                Grade = 'F'
+                            });
+                        }
                     }
                 }
+             
             }
 
  
@@ -80,7 +87,8 @@ namespace SM.UI
                     Console.WriteLine("4. Grade Submission");
                     Console.WriteLine("5. Grade Student's main grade");
                     Console.WriteLine("6. Add Student");
-                    Console.WriteLine("7. Exit");
+                    Console.WriteLine("7. Add Lecturer");
+                    Console.WriteLine("8. Exit");
 
                     var choice = Console.ReadLine();
 
@@ -110,14 +118,14 @@ namespace SM.UI
                             break;
 
                         case "4":
-                            Console.Write("Assignment Id: ");
-                            int aid = int.Parse(Console.ReadLine());
+                            //Console.Write("Assignment Id: ");
+                            int aid = ReadInt("Assignment Id: ");
 
-                            Console.Write("Student Username: ");
-                            var stu = Console.ReadLine();
+                            //Console.Write("Student Username: ");
+                            var stu = ReadString("Student Username: ");
 
-                            Console.Write("Grade (A-F): ");
-                            char grade = Console.ReadLine().ToUpper()[0];
+                            //Console.Write("Grade (A-F): ");
+                            char grade = ReadGrade("Grade (A-F): ");
 
                             await submissionService.Grade(aid, stu, grade);
                             break;
@@ -128,29 +136,29 @@ namespace SM.UI
                             foreach (var s in students)
                                 Console.WriteLine($"{s.UserName} | {s.Name} | Roll: {s.RollNumber} | Grade: {s.Grade}");
 
-                         Console.Write("Enter Student Roll Number: ");
-                            var studentRollNumber = int.Parse(Console.ReadLine());
+                         //Console.Write("Enter Student Roll Number: ");
+                            var studentRollNumber = ReadInt("Enter Student Roll Number: ");
 
-                            Console.Write("New Grade (A-F): ");
-                            var newGrade = char.Parse(Console.ReadLine().ToUpper());
+                            //Console.Write("New Grade (A-F): ");
+                            var newGrade = ReadGrade("New Grade (A-F): ");
 
                             await studentRepo.UpdateGrade(studentRollNumber, newGrade);
                             break;
 
                         case "6":
-                            Console.Write("Username: ");
-                            var newUser = Console.ReadLine();
+                            //Console.Write("Username: ");
+                            var newUser = ReadString("Username: ");
 
-                            Console.Write("Password: ");
-                            var pass = Console.ReadLine();
+                            //Console.Write("Password: ");
+                            var pass = ReadString("Password: ");
 
                             await authService.Register(newUser, pass, "Student");
 
-                            Console.Write("Name: ");
-                            var name = Console.ReadLine();
+                            //Console.Write("Name: ");
+                            var name = ReadString("Name: ");
 
-                            Console.Write("Roll Number: ");
-                            int roll = int.Parse(Console.ReadLine());
+                            //Console.Write("Roll Number: ");
+                            int roll = ReadInt("Roll Number");
 
                             await studentRepo.AddStudent(new Student
                             {
@@ -162,7 +170,16 @@ namespace SM.UI
 
                             break;
 
-                        case "7":
+                            case "7":
+                            var newLecturer = ReadString("Username: ");
+
+                            var lecturerPass = ReadString("Password: ");
+
+                            await authService.Register(newLecturer, lecturerPass, "Lecturer");
+
+                            break;
+
+                        case "8":
                             return;
                     }
                 }
@@ -191,11 +208,11 @@ namespace SM.UI
                                 Console.WriteLine($"{a.Id}. {a.Title} \n" +
                                     $" {a.Description}");
 
-                            Console.Write("Assignment Id: ");
-                            int id = int.Parse(Console.ReadLine());
+                            //Console.Write("Assignment Id: ");
+                            int id = ReadInt("Assignment ID: ");
 
-                            Console.Write("Answer: ");
-                            var answer = Console.ReadLine();
+                            //Console.Write("Answer: ");
+                            var answer = ReadString("Answer: ");
 
                             await submissionService.Submit(id, currentUser.Username, answer);
                             break;
@@ -218,8 +235,58 @@ namespace SM.UI
         }
 
 
-    
+        #region
+
+       public static int ReadInt(string message)
+        {
+            int value;
+            Console.WriteLine(message);
+
+            while (!int.TryParse(Console.ReadLine(), out value))
+            {
+                Console.WriteLine("Invalid number. Try again:");
+            }
+
+            return value;
+        }
+
+
+
+       public static char ReadGrade(string message)
+        {
+            Console.WriteLine(message);
+
+            while (true)
+            {
+                var input = Console.ReadLine()?.Trim().ToUpper();
+
+                if (!string.IsNullOrEmpty(input) && "ABCDF".Contains(input[0]))
+                    return input[0];
+
+                Console.WriteLine("Invalid grade. Use A, B, C, D, F:");
+            }
+        }
+
+
+      public static string ReadString(string message)
+        {
+            Console.WriteLine(message);
+
+            while (true)
+            {
+                var input = Console.ReadLine()?.Trim();
+
+                if (!string.IsNullOrWhiteSpace(input))
+                    return input;
+
+                Console.WriteLine("Input cannot be empty.");
+            }
+        }
+
+
+        #endregion
+
 
     }
-    
+
 }
