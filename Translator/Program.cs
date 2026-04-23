@@ -30,8 +30,9 @@ Georgian to English  2");
                 else if (response == "1")
                 {
 
-                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EN-KA.txt");
-                  
+                    //var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EN-KA.txt");
+                    var path = @"../../../EN-KA.txt";
+
                     Translate(path,"English","Georgian");
 
 
@@ -41,8 +42,9 @@ Georgian to English  2");
                 else if (response == "2")
                 {
 
-                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KA-EN.txt");
-                    
+                    //var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KA-EN.txt");
+                     var path = @"../../../KA-EN.txt";
+
                     Translate(path,"Georgian","English");
 
 
@@ -90,7 +92,7 @@ Georgian to English  2");
                     {
                         Console.WriteLine($"Enter the {translateTo} translation:");
                         var translationInput = Console.ReadLine().ToLower();
-                        File.AppendAllText(path, Environment.NewLine + $"{input}={translationInput}", Encoding.UTF8);
+                        File.AppendAllText(path,$"{input}={translationInput}", Encoding.UTF8);
                     }
                     else
                     {

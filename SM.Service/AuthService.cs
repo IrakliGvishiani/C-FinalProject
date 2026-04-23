@@ -1,4 +1,5 @@
 ﻿using SM.Repository;
+using SM.Repository.Interfaces;
 using SM.Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,10 @@ namespace SM.Service
 {
     public class AuthService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
 
-        public AuthService(UserRepository userRepository)
+        public AuthService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -36,7 +37,7 @@ namespace SM.Service
             var user = new User
             {
                 Username = userName,
-                Password = password, // In production, hash the password!
+                Password = password, 
                 Role = role
             };
             await _userRepository.AddUserAsync(user);

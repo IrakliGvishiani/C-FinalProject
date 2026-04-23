@@ -1,4 +1,5 @@
 ﻿using SM.Repository;
+using SM.Repository.Interfaces;
 using SM.Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace SM.Service
     {
 
 
-        private readonly AssignmentRepository _assignmentRepo;
+        private readonly IAssignmentRepository _assignmentRepo;
 
-        public AssignmentService(AssignmentRepository assignmentRepo)
+        public AssignmentService(IAssignmentRepository assignmentRepo)
         {
             _assignmentRepo = assignmentRepo;
         }

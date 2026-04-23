@@ -1,4 +1,5 @@
 ﻿using SM.Repository;
+using SM.Repository.Interfaces;
 using SM.Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ namespace SM.Service
     public class SubmissionService
     {
 
-        private readonly SubmissionRepository _submissionRepo;
-        private readonly AssignmentRepository _assignmentRepo;
+        private readonly ISubmissionRepository _submissionRepo;
+        private readonly IAssignmentRepository _assignmentRepo;
 
 
-        public SubmissionService(SubmissionRepository submissionRepo, AssignmentRepository assignmentRepo)
+        public SubmissionService(ISubmissionRepository submissionRepo, IAssignmentRepository assignmentRepo)
         {
             _submissionRepo = submissionRepo;
             _assignmentRepo = assignmentRepo;

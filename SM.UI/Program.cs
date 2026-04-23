@@ -9,11 +9,34 @@ namespace SM.UI
     {
         static async Task Main(string[] args)
         {
+            var userRepoPath = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            @"..\..\..\..\SM.Data\User.json"
+            );
 
-            var userRepo = new UserRepository(@"C:\\Users\\user\\source\\repos\\C#FinalProject\\SM.Data\\User.json");
-            var studentRepo = new StudentRepository(@"C:\Users\user\source\repos\C#FinalProject\SM.Data\Student.json");
-            var assignmentRepo = new AssignmentRepository(@"C:\Users\user\source\repos\C#FinalProject\SM.Data\Assignments.json");
-            var submissionRepo = new SubmissionRepository(@"C:\Users\user\source\repos\C#FinalProject\SM.Data\Submissions.json");
+            var assignmentRepoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../../SM.Data.Assignments.json");
+
+
+
+            var studentRepoPath = Path.Combine(
+    AppDomain.CurrentDomain.BaseDirectory,
+    @"..\..\..\..\SM.Data\Student.json"
+);
+
+            var submissonRepoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../../SM.Data.Submissions.json");
+
+            //var userRepoPath = @"C:\Users\user\source\repos\C#FinalProject\SM.Data\User.json";
+
+            //var assignmentRepoPath = @"C:\Users\user\source\repos\C#FinalProject\SM.Data.Assignments.json";
+
+            //var studentRepoPath = @"C:\Users\user\source\repos\C#FinalProject\SM.Data\Student.json";
+
+            //var submissonRepoPath = @"C:\Users\user\source\repos\C#FinalProject\SM.Data.Submissions.json";
+
+            var userRepo = new UserRepository(userRepoPath);
+            var studentRepo = new StudentRepository(studentRepoPath);
+            var assignmentRepo = new AssignmentRepository(assignmentRepoPath);
+            var submissionRepo = new SubmissionRepository(submissonRepoPath);
 
             var authService = new AuthService(userRepo);           
 
@@ -22,6 +45,7 @@ namespace SM.UI
 
             User currentUser = null;
 
+            //Console.WriteLine("exists" + File.Exists(submissonRepoPath));
 
             while (currentUser == null)
             {
@@ -107,7 +131,8 @@ namespace SM.UI
                         case "2":
                             var assignments = assignmentRepo.GetAllAssignments();
                             foreach (var a in assignments)
-                                Console.WriteLine($"{a.Id}. {a.Title} (by {a.CreatedBy})");
+                                Console.WriteLine($"{a.Id}. {a.Title} (by {a.CreatedBy}) \n " +
+                                    $"{a.Description}");
                             break;
 
                         case "3":
@@ -187,8 +212,9 @@ namespace SM.UI
                 {
                     Console.WriteLine("\n1. View Assignments");
                     Console.WriteLine("2. Submit Assignment");
-                    Console.WriteLine("3. View My Grades");
-                    Console.WriteLine("4. Exit");
+                    Console.WriteLine("3. View My Submission Grades");
+                    Console.WriteLine("4. View My Main Grade");
+                    Console.WriteLine("5. Exit");
 
                     var choice = Console.ReadLine();
 
@@ -197,7 +223,8 @@ namespace SM.UI
                         case "1":
                             var assignments = assignmentRepo.GetAllAssignments();
                             foreach (var a in assignments)
-                                Console.WriteLine($"{a.Id}. {a.Title}");
+                                Console.WriteLine($"{a.Id}. {a.Title} " +
+                                    $"{a.Description}");
                             break;
 
                         case "2":
@@ -208,14 +235,21 @@ namespace SM.UI
                                 Console.WriteLine($"{a.Id}. {a.Title} \n" +
                                     $" {a.Description}");
 
-                            //Console.Write("Assignment Id: ");
-                            int id = ReadInt("Assignment ID: ");
+                            if (allAssignments == null || !allAssignments.Any())
+                            {
+                                Console.WriteLine("No assignments available.");
+                            }
+                            else
+                            {
+                                int id = ReadInt("Assignment ID: ");
 
-                            //Console.Write("Answer: ");
-                            var answer = ReadString("Answer: ");
+                                //Console.Write("Answer: ");
+                                var answer = ReadString("Answer: ");
 
-                            await submissionService.Submit(id, currentUser.Username, answer);
-                            break;
+                                await submissionService.Submit(id, currentUser.Username, answer);
+                            }
+
+                                break;
 
                         case "3":
                             var submissions = submissionRepo.GetAllSubmissions();
@@ -223,11 +257,24 @@ namespace SM.UI
                                 .Where(s => s.StudentUsername == currentUser.Username);
 
                             foreach (var s in mySubs)
-                                Console.WriteLine($"Assignment {s.AssignmentId} → Grade: {s.Grade}");
+                                Console.WriteLine($"Assignment {s.AssignmentId} Grade: {s.Grade}");
 
                             break;
 
                         case "4":
+                            var student = studentRepo.GetAllStudents()
+                                .FirstOrDefault(s => s.UserName == currentUser.Username);
+                            if (student != null)
+                            {
+                                Console.WriteLine($"Your main grade: {student.Grade}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Student record not found.");
+                            }
+                            break;
+
+                        case "5":
                             return;
                     }
                 }

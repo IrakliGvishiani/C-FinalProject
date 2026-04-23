@@ -1,4 +1,5 @@
-﻿using SM.Repository.Models;
+﻿using SM.Repository.Interfaces;
+using SM.Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Text.Json;
 
 namespace SM.Repository
 {
-    public class SubmissionRepository
+    public class SubmissionRepository : ISubmissionRepository
     {
 
         private readonly string _filePath;
